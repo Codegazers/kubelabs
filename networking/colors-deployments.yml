@@ -1,0 +1,146 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: red-app
+  namespace: red-blue
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      color: red
+  template: 
+    metadata:
+      labels:
+        color: red
+    spec:
+      containers:
+      - name: red
+        image: codegazers/colors:1.13
+        ports:
+        - containerPort: 3000
+        env:
+        - name: COLOR
+          value: "red"
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /health
+            httpHeaders:
+            - name: AppStatus
+              value: "UP"
+          initialDelaySeconds: 1
+          periodSeconds: 5
+          timeoutSeconds: 4
+          successThreshold: 2
+          failureThreshold: 3
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: blue-app
+  namespace: red-blue  
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      color: blue
+  template: 
+    metadata:
+      labels:
+        color: blue
+    spec:
+      containers:
+      - name: blue
+        image: codegazers/colors:1.13
+        ports:
+        - containerPort: 3000
+        env:
+        - name: COLOR
+          value: "blue"
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /health
+            httpHeaders:
+            - name: AppStatus
+              value: "UP"
+          initialDelaySeconds: 1
+          periodSeconds: 5
+          timeoutSeconds: 4
+          successThreshold: 2
+          failureThreshold: 3
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: black-app
+  namespace: black-white
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      color: black
+  template: 
+    metadata:
+      labels:
+        color: black
+    spec:
+      containers:
+      - name: black
+        image: codegazers/colors:1.13
+        ports:
+        - containerPort: 3000
+        env:
+        - name: COLOR
+          value: "black"
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /health
+            httpHeaders:
+            - name: AppStatus
+              value: "UP"
+          initialDelaySeconds: 1
+          periodSeconds: 5
+          timeoutSeconds: 4
+          successThreshold: 2
+          failureThreshold: 3
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: white-app
+  namespace: black-white  
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      color: white
+  template: 
+    metadata:
+      labels:
+        color: white
+    spec:
+      containers:
+      - name: white
+        image: codegazers/colors:1.13
+        ports:
+        - containerPort: 3000
+        env:
+        - name: COLOR
+          value: "white"
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /health
+            httpHeaders:
+            - name: AppStatus
+              value: "UP"
+          initialDelaySeconds: 1
+          periodSeconds: 5
+          timeoutSeconds: 4
+          successThreshold: 2
+          failureThreshold: 3
+---

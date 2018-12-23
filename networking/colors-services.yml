@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: red-svc
+  namespace: red-blue  
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+    name: http
+  selector:
+    color: red
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blue-svc
+  namespace: red-blue
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+    name: http
+  selector:
+    color: blue
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: black-svc
+  namespace: black-white  
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+    name: http
+  selector:
+    color: black
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: white-svc
+  namespace: black-white  
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
+    name: http
+  selector:
+    color: white
+---
